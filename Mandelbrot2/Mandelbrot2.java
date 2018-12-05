@@ -100,7 +100,7 @@ public class Mandelbrot2 extends JPanel
 					g2.setColor(new Color(255 - c,(int)x2,(int)y2));
 					g2.setColor(new Color((int)x2,255 - c,(int)y2));
 
-					g2.setColor(new Color(0xffffff / c));
+					//g2.setColor(new Color(0xffffff / c));
 					g2.drawLine(wx, wy, wx, wy);
 				}
 				++wy;
