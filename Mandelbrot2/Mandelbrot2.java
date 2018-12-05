@@ -2,20 +2,21 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
-public class Mandelbrot extends JPanel
+
+public class Mandelbrot2 extends JPanel
 {
   int n = 1;
   int mode = 0;
 
   private static final Dimension DEFAULT_SIZE = new Dimension(960, 960);
 
-	public Mandelbrot()
+	public Mandelbrot2()
 	{
 		setPreferredSize(DEFAULT_SIZE);
 
     //Thread th = new AnimeThread();
     //th.start();
-    addMouseListener(new OnClick());
+    //addMouseListener(new OnClick());
 	}
 
 	public void paintComponent(Graphics g)
@@ -26,18 +27,24 @@ public class Mandelbrot extends JPanel
 	}
 
 	private void draw(Graphics2D g2, double x0, double y0){
-
+	
     double a_min=-0.5;
     double a_max=1.5;
 	double b_min=-1;
 	double b_max=1;
-    
+	
 	/*
-    double a_min=0.5;
-    double a_max=0.6;
-    double b_min=0.5;
-    double b_max=0.6;
+	double a_min=-0.2;
+    double a_max=-0.1;
+	double b_min=-0.05;
+	double b_max=0.05;
 	*/
+    /*
+    double a_min=0.650000004497600;
+    double a_max=0.650000004497650;
+    double b_min=0.450000003797608;
+    double b_max=0.450000003797658;
+*/
 		double a_step=(a_max-a_min)/x0;
 		double b_step=(b_max-b_min)/y0;
 		int wx,wy;
@@ -48,23 +55,23 @@ public class Mandelbrot extends JPanel
 				double x=0;
 				double y=0;
 				int c=0;
-        long startTime = System.nanoTime();
-				for(c=0;c<=n;c++){
+        		long startTime = System.nanoTime();
+				for(c=0;c<=255;c++){
 					double x2=x*x;
 					double y2=y*y;
 					double zx=x2-y2-a;
 					double zy=2*x*y-b;
 					x=zx;
 					y=zy;
-					if(x2+y2>=4)
+					if(x2+y2>=25)
 						break;
 				}
-				if(c==n+1){
-          long estimatedTime = System.nanoTime() - startTime;
+				if(c==256){
+          			long estimatedTime = System.nanoTime() - startTime;
 					c=0;
-          //g2.setColor(new Color(0xff0000 / (int)estimatedTime));
-					g2.setColor(Color.BLACK);
-					double x2 = x * x;
+					//System.out.println(estimatedTime);
+          			//g2.setColor(255,255,(int)Math.sqrt(estimatedTime));
+          			double x2 = x * x;
           			double y2 = y * y;
           			double z = x2 + y2;
           			double _z = Math.abs(Math.tan(1/z))*130;
@@ -75,13 +82,18 @@ public class Mandelbrot extends JPanel
           			if(_x >= 255) _x = 255;
           			if(_y >= 255) _y = 255;
           			//System.out.println(_z);
-          			g2.setColor(new Color(0,(int)_z,255));
-          			g2.setColor(new Color(255,255,(int)_z));
-          			g2.setColor(Color.YELLOW);
+          			g2.setColor(new Color(0,(int)_x,255));
+          			//g2.setColor(new Color((int)_x,(int)_y,(int)_z));
+
+					//g2.setColor(Color.BLACK);
+					//g2.setColor(new Color())
 					g2.drawLine(wx, wy, wx, wy);
 				}else{
             //g2.setColor(new Color(c));
-					//double x2 = Math.sqrt(x*x);
+
+          			//g2.setColor(new Color(0xffffff / c));
+          			//System.out.println((int)x);
+          			//double x2 = Math.sqrt(x*x);
           			//double y2 = Math.sqrt(y*y);
           			double x2 = x * x;
           			double y2 = y * y;
@@ -89,18 +101,17 @@ public class Mandelbrot extends JPanel
           			double _z = Math.abs(Math.tan(1/z))*130;
           			double _x = Math.abs(Math.tan(1/x2))*70;
           			double _y = Math.abs(Math.tan(1/y2))*70;
-          			if(x2 >= 255) x2 = 255;
-          			if(y2 >= 255) y2 = 255;
+
           			if(_z >= 255) _z = 255;
           			if(_x >= 255) _x = 255;
           			if(_y >= 255) _y = 255;
-					//g2.setColor(new Color(255 - c,(int)x2,(int)y2));
-					//g2.setColor(new Color((int)x2,255 - c,(int)y2));
-          			//g2.setColor(new Color(0xffffff / c));
-					//g2.setColor(new Color((int)x2,255 - c,(int)y2));
+          			if(x2 >= 255) x2 = 255;
+          			if(y2 >= 255) y2 = 255;
+					g2.setColor(new Color(255 - c,(int)x2,(int)y2));
+					g2.setColor(new Color((int)x2,255 - c,(int)y2));
           			g2.setColor(new Color((int)_x,0,(int)_y));
 
-					//g2.setColor(new Color(0xffffff / 512 * c));
+					//g2.setColor(new Color(0xffffff / c));
 					g2.drawLine(wx, wy, wx, wy);
 				}
 				++wy;
@@ -108,10 +119,11 @@ public class Mandelbrot extends JPanel
 			++wx;
 		}
 	}
-
+/*
   class AnimeThread extends Thread{
     public void run(){
-      while(true){
+
+      while(mode == 1){
         n++;
         repaint();
 
@@ -122,7 +134,8 @@ public class Mandelbrot extends JPanel
       }
     }
   }
-
+  */
+/*
   class OnClick extends MouseAdapter {
     public void mouseClicked(MouseEvent e){
       if(mode == 0){
@@ -134,6 +147,7 @@ public class Mandelbrot extends JPanel
       }
     }
   }
+  */
 
 	public static void main(String[] args)
 	{
@@ -141,7 +155,7 @@ public class Mandelbrot extends JPanel
 			UIManager.getSystemLookAndFeelClassName()); }
 		catch (Exception e) { e.printStackTrace(); }
 
-		Mandelbrot mandelbrot = new Mandelbrot();
+		Mandelbrot2 mandelbrot = new Mandelbrot2();
 
 		JFrame frame = new JFrame(mandelbrot.getClass().getName());
 		frame.getContentPane().add(mandelbrot);
