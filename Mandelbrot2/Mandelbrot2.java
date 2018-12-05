@@ -85,7 +85,7 @@ public class Mandelbrot2 extends JPanel
           			g2.setColor(new Color(0,(int)_x,255));
           			//g2.setColor(new Color((int)_x,(int)_y,(int)_z));
 
-					//g2.setColor(Color.BLACK);
+					g2.setColor(Color.BLACK);
 					//g2.setColor(new Color())
 					g2.drawLine(wx, wy, wx, wy);
 				}else{
@@ -93,25 +93,14 @@ public class Mandelbrot2 extends JPanel
 
           			//g2.setColor(new Color(0xffffff / c));
           			//System.out.println((int)x);
-          			//double x2 = Math.sqrt(x*x);
-          			//double y2 = Math.sqrt(y*y);
-          			double x2 = x * x;
-          			double y2 = y * y;
-          			double z = x2 + y2;
-          			double _z = Math.abs(Math.tan(1/z))*130;
-          			double _x = Math.abs(Math.tan(1/x2))*70;
-          			double _y = Math.abs(Math.tan(1/y2))*70;
-
-          			if(_z >= 255) _z = 255;
-          			if(_x >= 255) _x = 255;
-          			if(_y >= 255) _y = 255;
+          			double x2 = Math.sqrt(x*x);
+          			double y2 = Math.sqrt(y*y);
           			if(x2 >= 255) x2 = 255;
           			if(y2 >= 255) y2 = 255;
 					g2.setColor(new Color(255 - c,(int)x2,(int)y2));
 					g2.setColor(new Color((int)x2,255 - c,(int)y2));
-          			g2.setColor(new Color((int)_x,0,(int)_y));
 
-					//g2.setColor(new Color(0xffffff / c));
+					g2.setColor(new Color(0xffffff / c));
 					g2.drawLine(wx, wy, wx, wy);
 				}
 				++wy;
